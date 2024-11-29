@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Платформа для абітурієнтів</title>
+    <style>
+      
+      .specialties-list {
+    display: flex;
+    flex-wrap: wrap; /* Дозволяє переходити на новий рядок */
+    gap: 20px; /* Проміжки між картками */
+}
+
+.specialties-list article {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(33.33% - 20px); /* Три колонки */
+    max-width: calc(33.33% - 20px); /* Встановити максимальну ширину */
+}
+
+/* Для адаптації під менші екрани */
+@media (max-width: 768px) {
+    .specialties-list article {
+        flex: 1 1 calc(50% - 20px); /* Дві колонки для середніх екранів */
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .specialties-list article {
+        flex: 1 1 100%; /* Одна колонка для маленьких екранів */
+        max-width: 100%;
+    }
+}
+
+    .universities-list {
+        display: flex;
+        flex-wrap: wrap; /* Дозволяє переходити на новий рядок */
+        gap: 20px; /* Проміжки між картками */
+    }
+
+    .universities-list article {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        flex: 1 1 calc(33.33% - 20px); /* Три колонки */
+        max-width: calc(33.33% - 20px); /* Встановити максимальну ширину */
+    }
+
+    /* Для адаптації під менші екрани */
+    @media (max-width: 768px) {
+        .universities-list article {
+            flex: 1 1 calc(50% - 20px); /* Дві колонки для середніх екранів */
+            max-width: calc(50% - 20px);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .universities-list article {
+            flex: 1 1 100%; /* Одна колонка для маленьких екранів */
+            max-width: 100%;
+        }
+    }
+
+        body { background-color: #f0f0f0; font-family: Arial, sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #4caf50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        header input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+        }
+
+        header button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        header button:hover {
+            background-color: #555;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        article {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            width: calc(50% - 20px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        article h3 {
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        footer .socials a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        footer .socials a:hover {
+            text-decoration: underline;
+        }
+    </style>
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #chat-container {
+            max-width: 500px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+        #chat-box {
+            width: 100%;
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #fff;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        #message-input {
+            width: calc(100% - 80px);
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+        #send-btn {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .message {
+            margin: 5px 0;
+        }
+        .user-msg {
+            text-align: right;
+            color: blue;
+        }
+        .bot-msg {
+            text-align: left;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#specialties" class="tab-link active">Спеціальність</a></li>
+                <li><a href="#universities" class="tab-link">Навчальні заклади</a></li>
+                <li><a href="#reviews" class="tab-link">Відгуки студентів</a></li>
+                <li><a href="#faq" class="tab-link">Питання та відповіді</a></li>
+                <li><a href="#contact" class="tab-link">Контакти</a></li>
+            </ul>
+        </nav>
+        <h1>Ласкаво просимо на платформу для абітурієнтів!</h1>
+        <p>Знайдіть свою майбутню професію та навчальний заклад вже сьогодні.</p>
+        <input type="text" id="searchInput" placeholder="Пошук спеціальності або закладу..." onkeyup="search()">
+        <button>Шукати</button>
+    </header>
+
+    <main>
+        <section id="specialties" class="tab-content">
+            <h2>Популярні спеціальності</h2>
+            <div class="specialties-list">
+                <article>
+                    <h3>1. Інформаційні технології (ІТ)</h3>
+                    <p>Сфера, що охоплює програмування, розробку програмного забезпечення, кібербезпеку та аналіз даних. Затребувана галузь із високими зарплатами.</p>
+                </article>
+                <article>
+                    <h3>2. Економіка</h3>
+                    <p>Вивчення принципів фінансів, ринків і управління ресурсами. Підходить для кар’єри в банках, корпораціях і державних структурах.</p>
+                </article>
+                <article>
+                    <h3>3. Бізнес-адміністрування</h3>
+                    <p>Фокус на управлінні компаніями, стратегіях розвитку, маркетингу та лідерстві. Готує до управлінських позицій.</p>
+                </article>
+                <article>
+                    <h3>4. Медицина</h3>
+                    <p>Сфера для тих, хто прагне лікувати людей. Охоплює теоретичні знання й практичні навички в різних галузях охорони здоров’я.</p>
+                </article>
+                <article>
+                    <h3>5. Право</h3>
+                    <p>Юридична освіта, яка відкриває двері до кар’єри адвоката, судді, прокурора або юриста в приватному секторі.</p>
+                </article>
+                <article>
+                    <h3>6. Психологія</h3>
+                    <p>Наука про поведінку й мислення людей. Допомагає працювати в клінічній практиці, HR чи консалтингу.</p>
+                </article>
+                <article>
+                    <h3>7. Міжнародні відносини</h3>
+                    <p>Дослідження дипломатії, зовнішньої політики та глобальних викликів. Ідеальний вибір для кар’єри в міжнародних організаціях.</p>
+                </article>
+                <article>
+                    <h3>8. Журналістика</h3>
+                    <p>Вивчення медіа, репортажів та комунікації. Готує до роботи у ЗМІ, рекламі чи PR.</p>
+                </article>
+                <article>
+                    <h3>9. Дизайн</h3>
+                    <p>Графічний, інтер’єрний чи промисловий дизайн. Сфера творчості, що об’єднує мистецтво та технології.</p>
+                </article>
+                <article>
+                    <h3>10. Архітектура</h3>
+                    <p>Проєктування будівель і міського середовища. Поєднує естетику, інженерію та практичні навички.</p>
+                </article>
+                <article>
+                    <h3>11. Інженерія</h3>
+                    <p>Сфера технологій і виробництва: машинобудування, будівництво, електроніка. Підходить для людей, які люблять вирішувати складні технічні завдання.</p>
+                </article>
+                <article>
+                    <h3>12. Філологія</h3>
+                    <p>Вивчення мов, літератур і культур. Підготовка до кар’єри перекладача, викладача чи культурного аналітика.</p>
+                </article>
+                <article>
+                    <h3>13. Біотехнології</h3>
+                    <p>Поєднання науки й інновацій у сфері медицини, агрокультури та харчової промисловості.</p>
+                </article>
+                <article>
+                    <h3>14. Соціологія</h3>
+                    <p>Вивчення суспільства, соціальних груп і явищ. Підготовка до роботи в дослідженнях чи урядових структурах.</p>
+                </article>
+                <article>
+                    <h3>15. Географія та геологія</h3>
+                    <p>Дослідження Землі, її ресурсів і природних процесів. Кар’єра в екології, видобувній сфері чи урбаністиці.</p>
+                </article>
+                <article>
+                    <h3>16. Туризм</h3>
+                    <p>Освіта в галузі організації подорожей і готельного бізнесу. Ідеальна для любителів подорожей.</p>
+                </article>
+                <article>
+                    <h3>17. Маркетинг</h3>
+                    <p>Стратегія, дослідження ринку та управління брендами. Готує фахівців для рекламної та бізнес-індустрії.</p>
+                </article>
+                <article>
+                    <h3>18. Акторська майстерність</h3>
+                    <p>Розвиток творчих здібностей і навичок для роботи в кіно, театрі або на телебаченні.</p>
+                </article>
+                <article>
+                    <h3>19. Фармація</h3>
+                    <p>Сфера для створення ліків і роботи в аптеках. Потребує точності й знання хімії.</p>
+                </article>
+                <article>
+                    <h3>20. Агрономія</h3>
+                    <p>Наука про рослини, їхнє вирощування та застосування. Популярна у сфері сільського господарства.</p>
+                </article>
+            </div>
+        </section>
+        
+        
+        
+        
+
+        <section id="universities" class="tab-content">
+            <h2>Популярні навчальні заклади</h2>
+            <div class="universities-list">
+                <article>
+                    <h3>ІКЦ ДН ХНУ м. Львів</h3>
+                    <p>м. Львів, вул. Городоцька, 195</p>
+                </article>
+                <article>
+                    <h3>Львівська державна фінансова академія (ЛДФА)</h3>
+                    <p>м. Львів, вул. Коперника, 3</p>
+                </article>
+                <article>
+                    <h3>Львівська медична академія імені Андрея Крупинського</h3>
+                    <p>м. Львів, вул. П. Дорошенка, 70</p>
+                </article>
+                <article>
+                    <h3>Львівська національна академія мистецтв (ЛНАМ)</h3>
+                    <p>м. Львів, вул. Кубійовича, 38</p>
+                </article>
+                <article>
+                    <h3>Львівська національна музична академія ім. Лисенка (ЛНМА)</h3>
+                    <p>м. Львів, вул. Нижанківського, 5</p>
+                </article>
+                <article>
+                    <h3>IT STEP University</h3>
+                    <p>м. Львів, вул. Замарстинівська, 83А</p>
+                </article>
+                <article>
+                    <h3>Інститут сталого розвитку ім. В. Чорновола</h3>
+                    <p>м. Львів, вул. Генерала Чупринки, 130</p>
+                </article>
+                <article>
+                    <h3>Львівський державний університет безпеки життєдіяльності (ЛДУ БЖД)</h3>
+                    <p>м. Львів, вул. Клепарівська, 35</p>
+                </article>
+                <article>
+                    <h3>Львівський державний університет внутрішніх справ (ЛьвДУВС)</h3>
+                    <p>м. Львів, вул. Городоцька, 26</p>
+                </article>
+                <article>
+                    <h3>Львівський державний університет фізичної культури імені Івана Боберського</h3>
+                    <p>м. Львів, вул. Костюшка, 11</p>
+                </article>
+                <article>
+                    <h3>Львівський інститут економіки і туризму (ЛІЕТ)</h3>
+                    <p>м. Львів, вул. Менцинського, 8</p>
+                </article>
+                <article>
+                    <h3>Львівський інститут менеджменту (ЛІМ)</h3>
+                    <p>м. Львів, вул. Ліська, 16</p>
+                </article>
+                <article>
+                    <h3>Львівський медичний університет (ЛМУ)</h3>
+                    <p>м. Львів, вул. В. Поліщука, 76</p>
+                </article>
+                <article>
+                    <h3>Львівський навчально-науковий інститут ДВНЗ "Університет банківської справи"</h3>
+                    <p>м. Львів, просп. В'ячеслава Чорновола, 61</p>
+                </article>
+                <article>
+                    <h3>Львівський національний медичний університет ім. Данила Галицького (ЛНМУ)</h3>
+                    <p>м. Львів, вул. Пекарська, 69</p>
+                </article>
+                <article>
+                    <h3>Львівський національний університет ветеринарної медицини та біотехнологій імені С.З. Ґжицького (ЛНУВМБ)</h3>
+                    <p>м. Львів, вул. Пекарська, 50</p>
+                </article>
+                <article>
+                    <h3>Львівський національний університет ім. Франка (ЛНУ)</h3>
+                    <p>м. Львів, вул. Університетська, 1</p>
+                </article>
+                <article>
+                    <h3>Львівський торговельно-економічний університет</h3>
+                    <p>м. Львів, вул. Туган-Барановського, 10</p>
+                </article>
+                <article>
+                    <h3>Львівський університет бізнесу та права (ЛУБП)</h3>
+                    <p>м. Львів, вул. Кульпарківська, 99</p>
+                </article>
+                <article>
+                    <h3>Національний лісотехнічний університет України (НЛТУ України)</h3>
+                    <p>м. Львів, вул. Генерала Чупринки, 103</p>
+                </article>
+                <article>
+                    <h3>Українська академія друкарства (УАД)</h3>
+                    <p>м. Львів, вул. Підголоско, 19</p>
+                </article>
+                <article>
+                    <h3>Український католицький університет (УКУ)</h3>
+                    <p>м. Львів, вул. Іл. Свєнціцького, 17</p>
+                </article>
+            </div>
+        </section>
+        
+
+        <section id="reviews" class="tab-content">
+            <h2>Відгуки студентів</h2>
+            <p>Ось що кажуть студенти про свої навчальні заклади:</p>
+            <article>
+                <h3>Програмна інженерія - Національний університет</h3>
+                <p>Студент: "Навчання цікаве, багато практики!"</p>
+            </article>
+            <article>
+                <h3>Медицина - Медичний інститут</h3>
+                <p>Студент: "Чудові викладачі та можливості для розвитку."</p>
+            </article>
+        </section>
+
+        <section id="faq" class="tab-content">
+            <h2>Питання та відповіді</h2>
+        
+            <!-- Форма для додавання питання -->
+            <div class="faq-form">
+                <textarea id="user-question" placeholder="Напишіть своє питання..." rows="4" style="width: 100%;"></textarea>
+                <button id="submit-question">Задати питання</button>
+            </div>
+        
+            <!-- Відображення питань та відповідей -->
+            <div id="faq-container">
+                <div class="faq-item">
+                    <p class="question"><strong>Питання:</strong> Як вибрати спеціальність для навчання?</p>
+                    <p class="answer"><strong>Відповідь:</strong> Обирайте спеціальність, що вас цікавить та відповідає вашим здібностям і інтересам. Проконсультуйтесь із фахівцями або студентами цієї галузі для кращого розуміння!</p>
+                </div>
+                <!-- Динамічно додавати нові питання тут -->
+            </div>
+        </section>
+
+        <section id="contact" class="tab-content">
+            <h2>Контакти</h2>
+            <p>Контактна інформація: info@platform.com</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Платформа для абітурієнтів. Всі права захищені.</p>
+        <div class="socials">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        // Переключення вкладок
+        const tabs = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                // Видалити клас активної вкладки з усіх кнопок
+                tabs.forEach(t => t.classList.remove('active'));
+                // Додати клас активної вкладки до натиснутого елементу
+                e.target.classList.add('active');
+
+                // Сховати всі вкладки
+                tabContents.forEach(content => content.classList.remove('active'));
+                // Показати вкладку, що відповідає натиснутій кнопці
+                const targetContent = document.querySelector(e.target.getAttribute('href'));
+                targetContent.classList.add('active');
+            });
+        });
+    </script>
+    <script>
+        function search() {
+            // Отримуємо введене значення з поля пошуку
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            
+            // Пошук серед спеціальностей
+            const specialties = document.querySelectorAll('.specialties-list article');
+            specialties.forEach(article => {
+                const title = article.querySelector('h3').textContent.toLowerCase();
+                const description = article.querySelector('p').textContent.toLowerCase();
+                if (title.includes(searchValue) || description.includes(searchValue)) {
+                    article.style.display = 'block'; // Показуємо елемент
+                } else {
+                    article.style.display = 'none'; // Ховаємо елемент
+                }
+            });
+
+            // Пошук серед навчальних закладів
+            const universities = document.querySelectorAll('.universities-list article');
+            universities.forEach(article => {
+                const title = article.querySelector('h3').textContent.toLowerCase();
+                const description = article.querySelector('p').textContent.toLowerCase();
+                if (title.includes(searchValue) || description.includes(searchValue)) {
+                    article.style.display = 'block'; // Показуємо елемент
+                } else {
+                    article.style.display = 'none'; // Ховаємо елемент
+                }
+            });
+        }
+    </script>
+    
+    <script>
+        // Обробка події натискання кнопки
+        document.getElementById('submit-question').addEventListener('click', function() {
+            // Отримання введеного питання
+            const questionText = document.getElementById('user-question').value;
+    
+            // Перевірка, чи питання не порожнє
+            if (questionText.trim() !== "") {
+                // Створення нового елемента для питання
+                const newFaqItem = document.createElement('div');
+                newFaqItem.classList.add('faq-item');
+    
+                // Додавання питання до елемента
+                const questionElement = document.createElement('p');
+                questionElement.classList.add('question');
+                questionElement.innerHTML = `<strong>Питання:</strong> ${questionText}`;
+    
+                // Додавання відповіді (можна додати пусту відповідь або навести приклад)
+                const answerElement = document.createElement('p');
+                answerElement.classList.add('answer');
+                answerElement.innerHTML = "<strong>Відповідь:</strong> Ваше питання буде оброблено найближчим часом.";
+    
+                // Додавання питання і відповіді до нового елемента
+                newFaqItem.appendChild(questionElement);
+                newFaqItem.appendChild(answerElement);
+    
+                // Додавання нового елемента до контейнера
+                document.getElementById('faq-container').appendChild(newFaqItem);
+    
+                // Очищення текстового поля після додавання
+                document.getElementById('user-question').value = "";
+            } else {
+                alert("Будь ласка, введіть питання!");
+            }
+        });
+    </script>
+     <script>
+        // Функція для активації вкладки
+        document.addEventListener('DOMContentLoaded', function() {
+            // Активуємо першу вкладку (спеціальності)
+            const firstTabLink = document.querySelector('.tab-link');
+            const firstTabContent = document.querySelector('.tab-content');
+            firstTabLink.classList.add('active');
+            firstTabContent.classList.add('active');
+        });
+    </script>
+</body>
+</html>
